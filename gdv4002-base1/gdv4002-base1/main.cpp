@@ -5,6 +5,9 @@
 using namespace std;
 
 // Function prototypes
+void myUpdate(GLFWwindow* window, double tDelta);
+//set prototype for update function
+
 void RandomPosition(float* x, float* y)
 {
 	float v1 = (float)rand() / (float)RAND_MAX;
@@ -68,12 +71,18 @@ int main(void) {
 		//asteroid code here
 		float x, y;
 		RandomPosition(&x, &y);
+		//take the random pos
 		Asteroid->position = glm::vec2(x, y);
+		//set the asteroid to that pos
 	}
 	else
 	{
 		cout << "Asteroid Not Found";
 	}
+
+	setUpdateFunction(myUpdate);
+	//Set and gets it ready.
+
 	// Enter main loop - this handles update and render calls
 	engineMainLoop();
 
@@ -84,4 +93,7 @@ int main(void) {
 	return 0;
 }
 
+void myUpdate(GLFWwindow* window, double tDelta) {
 
+}
+//Called every frame, input and animations go here
