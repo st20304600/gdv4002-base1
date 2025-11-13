@@ -21,6 +21,21 @@ void RandomPosition(float* x, float* y)
 	float v2 = (float)rand() / (float)RAND_MAX;
 	*y = v2 * 2.5f;
 }
+void SpawnAsteroid()
+{
+	//addObject("Asteroid", glm::vec2(0.0f, 0.0f), 0.0f, glm::vec2(0.3f, 0.3f), "Resources\\Textures\\Asteroid.png", TextureProperties::NearestFilterTexture());
+	//Function to spawn asteroids at random positions at the top of the screen
+	int maxAsteroids = 5;
+	int currentAsteroids;
+
+	if (currentAsteroids <= maxAsteroids) {
+
+		float x, y;
+		RandomPosition(&x, &y);
+		addObject("Asteroid", glm::vec2(x, y), 0.0f, glm::vec2(0.3f, 0.3f), "Resources\\Textures\\Asteroid.png", TextureProperties::NearestFilterTexture());
+		currentAsteroids++;
+	}
+}
 
 int main(void) {
 
@@ -36,6 +51,9 @@ int main(void) {
 
 	std::srand(std::time({}));
 
+
+	//float anglesPerSecond = glm::radians(45.0f);
+
 	//glEnable(GL_BLEND);
 	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	
@@ -44,19 +62,21 @@ int main(void) {
 	//
 	
 	//Background
+	
 	//addObject("Background", glm::vec2(0.0f, 0.0f), 0.0f, glm::vec2(4.0f, 4.0f), "Resources\\Textures\\Background_Space.png", TextureProperties::NearestFilterTexture());
 	//asteroids
-	addObject("Asteroid", glm::vec2(0.0f, 0.0f), 0.0f, glm::vec2(0.3f, 0.3f), "Resources\\Textures\\Asteroid.png", TextureProperties::NearestFilterTexture());
+	//addObject("Asteroid", glm::vec2(0.0f, 0.0f), 0.0f, glm::vec2(0.3f, 0.3f), "Resources\\Textures\\Asteroid.png", TextureProperties::NearestFilterTexture());
+
 	//Player Ship
 	addObject("Player", glm::vec2(0.0f, -1.0f), 0.0f, glm::vec2(0.4f, 0.5f), "Resources\\Textures\\Player_Ship.png", TextureProperties::NearestFilterTexture());
 	
 	GameObject2D* player = getObject("Player");
-	GameObject2D* Asteroid = getObject("Asteroid");
+	//GameObject2D* Asteroid = getObject("Asteroid");
 
 
 	if (player != nullptr)
 	{
-		cout << "Player Found";
+		cout << "Player Found \n";
 		//player code here
 
 	}
@@ -65,6 +85,7 @@ int main(void) {
 		cout << "Player Not Found";
 	}
 
+	/*
 	if (Asteroid != nullptr)
 	{
 		cout << "Asteroid Found";
@@ -79,9 +100,12 @@ int main(void) {
 	{
 		cout << "Asteroid Not Found";
 	}
+	*/
+
+	listGameObjectKeys();
 
 	setUpdateFunction(myUpdate);
-	//Set and gets it ready.
+	//Sets it and gets it ready.
 
 	// Enter main loop - this handles update and render calls
 	engineMainLoop();
@@ -94,6 +118,12 @@ int main(void) {
 }
 
 void myUpdate(GLFWwindow* window, double tDelta) {
+
+	SpawnAsteroid();
+
+	float asteroidRotationSpeed = glm::radians(45.0f); // 45 degrees per second
+	GameObject2D* Asteroid = getObject("Asteroid");
+	Asteroid->orientation += asteroidRotationSpeed * (float)tDelta;
 
 }
 //Called every frame, input and animations go here
