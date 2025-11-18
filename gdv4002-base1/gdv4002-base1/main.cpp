@@ -5,16 +5,18 @@
 #include <complex>
 #include <bitset>
 #include <ctime>
+#include <cmath>
 
 using namespace std;
+using namespace glm;
 
 //global variables
 bitset<5> keys{ 0x0 };
 //keys bitset to hold key states
 static float playerSpeed = 1.0f;
-static float playerRotationSpeed = glm::radians(100.0f);
-complex<float> position(0.0, 0.0);
-complex<float> direction(1.0, 0.0);
+static float playerRotationSpeed = radians(100.0f);
+float pi = 3.14159265359f;
+const float PI_2 = 1.57079632679f;
 
 // Function prototypes
 void myUpdate(GLFWwindow* window, double tDelta);
@@ -161,15 +163,20 @@ void myUpdate(GLFWwindow* window, double tDelta) {
 	//Player
 	GameObject2D* player = getObject("Player");
 	if (keys.test(Key::W) == true) {
-		complex<float> i = complex<float>(0.0f, 1.0f);
-		complex<float> c = exp(i * player->orientation);
-
-		//float dir_x = cosf(player->orientation);
-		//float dir_y = sinf(player->orientation);
-
-		glm::vec2 dir = glm::vec2(0.0f, playerSpeed);
-		player->position += dir * (float)tDelta;
+		//V.1
 		//player->position.y += playerSpeed * (float)tDelta;
+
+		//V.2
+		complex<float> i(0.0f, 1.0f);
+		complex<float> r = exp(i * (player->orientation + PI_2)); // e^(i*theta) gives us a unit vector in the direction of theta
+		vec2 forward(r.real(), r.imag());
+
+		player->position += forward * playerSpeed * (float)tDelta;
+
+		cout << i << "\n";
+		cout << r << "\n";
+
+		
 	}
 
 	if (keys.test(Key::S) == true) {
