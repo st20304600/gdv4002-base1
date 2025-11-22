@@ -29,9 +29,16 @@ int main(void) {
 	//Player
 	GLuint playerTexture = loadTexture("Resources\\Textures\\player1_ship.png");
 
-	Player* mainPlayer = new Player(glm::vec2(-1.5f, 0.0f), 0.0f, glm::vec2(0.5f, 0.5f), playerTexture, 1.0f);
+	Player* mainPlayer = new Player(glm::vec2(0.0f, -1.0f), 0.0f, glm::vec2(0.5f, 0.5f), playerTexture, 1.0f);
 
 	addObject("player", mainPlayer);
+
+	//Asteroid
+	GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
+
+	Asteroid* asteroid1 = new Asteroid(glm::vec2(0.0f, 2.0f), 0.0f, glm::vec2(0.5f, 0.5f), asteroidTexture, glm::vec2(0.5f, -0.2f), 20.0f, 1.0f);]
+
+	addObject("asteroid1", asteroid1);
 
 
 	setKeyboardHandler(myKeyboardHandler);
