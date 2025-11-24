@@ -30,7 +30,7 @@ int main(void) {
 	//Player
 	GLuint playerTexture = loadTexture("Resources\\Textures\\player1_ship.png");
 
-	Player* mainPlayer = new Player(vec2(0.0f, -1.0f), 0.0f, vec2(0.5f, 0.5f), playerTexture, 2.5f);
+	Player* mainPlayer = new Player(vec2(0.0f, 0.0f), 0.0f, vec2(0.5f, 0.5f), playerTexture, 2.5f);
 
 	addObject("player", mainPlayer);
 

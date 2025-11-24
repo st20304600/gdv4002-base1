@@ -23,24 +23,11 @@ Player::Player(glm::vec2 initPosition,
 
 void Player::update(double tDelta) {
 
+	ScreenBounds();
+	//cout << position.x << "," << position.y << "\n";
+
 	vec2 F = vec2(0.0f, 0.0f);
 
-#pragma region Screen Bounds
-
-	if (Player::position.y < -getViewplaneHeight() / 2.0f) {
-		F += vec2(0.0f, screenBounce);
-	}
-	if (Player::position.y > getViewplaneHeight() / 2.0f) {
-		F += vec2(0.0f, -screenBounce);
-	}
-	if (Player::position.x < -getViewplaneWidth() / 2.0f) {
-		F += vec2(screenBounce, 0.0f);
-	}
-	if (Player::position.x > getViewplaneWidth() / 2.0f) {
-		F += vec2(-screenBounce, 0.0f);
-	}
-
-#pragma endregion
 #pragma region Player Movement
 
 	if (keys.test(Key::W) == true) {
@@ -71,4 +58,23 @@ void Player::update(double tDelta) {
 	Player::position += (velocity * (float)tDelta); //Update position
 #pragma endregion
 
+}
+
+void Player::ScreenBounds() {
+
+	float halfHieght = getViewplaneHeight() / 2.0f;
+	float halfWidth = getViewplaneWidth() / 2.0f;
+
+	if (Player::position.x >= halfWidth) {
+		position.x = -halfWidth + 0.1f;
+	}
+	if (Player::position.x <= -halfWidth) {
+		position.x = halfWidth - 0.1f;
+	}
+	if (position.y >= halfHieght) {
+		position.y = -halfWidth + 0.1f;
+	}
+	if (position.y <= -halfWidth) {
+		position.y = halfWidth + 0.1f;
+	}
 }
