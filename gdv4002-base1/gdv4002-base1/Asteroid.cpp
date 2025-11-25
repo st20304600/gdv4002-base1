@@ -18,3 +18,7 @@ void Asteroid::update(double tDelta) {
 	Asteroid::orientation += rotationSpeed * (float)tDelta;
 
 }
+
+void Asteroid::SpawnAsteroid() {
+
+}

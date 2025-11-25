@@ -32,30 +32,30 @@ void Player::update(double tDelta) {
 
 	if (keys.test(Key::W) == true) {
 
-		vec2 forward(cos(Player::orientation),
-					sin(Player::orientation));
+		vec2 forward(cos(orientation),
+					sin(orientation));
 
 		F += forward * thrust;
 	}
 	if (keys.test(Key::S) == true) {
 
-		vec2 backward(cos(Player::orientation),
-					  sin(Player::orientation));
+		vec2 backward(cos(orientation),
+					  sin(orientation));
 
 		F -= backward * thrust;
 	}
 	if (keys.test(Key::A) == true) {
 	
-		Player::orientation += playerRotationSpeed * (float)tDelta;
+		orientation += playerRotationSpeed * (float)tDelta;
 	}
 	if (keys.test(Key::D) == true) {
 
-		Player::orientation -= playerRotationSpeed * (float)tDelta;
+		orientation -= playerRotationSpeed * (float)tDelta;
 	}
 
 	vec2 a = F * (1.0f / mass); //Calculate acceleration
 	velocity = velocity + (a * (float)tDelta); //Update velocity
-	Player::position += (velocity * (float)tDelta); //Update position
+	position += (velocity * (float)tDelta); //Update position
 #pragma endregion
 
 }
@@ -65,10 +65,10 @@ void Player::ScreenBounds() {
 	float halfHieght = getViewplaneHeight() / 2.0f;
 	float halfWidth = getViewplaneWidth() / 2.0f;
 
-	if (Player::position.x >= halfWidth) {
+	if (position.x >= halfWidth) {
 		position.x = -halfWidth + 0.1f;
 	}
-	if (Player::position.x <= -halfWidth) {
+	if (position.x <= -halfWidth) {
 		position.x = halfWidth - 0.1f;
 	}
 	if (position.y >= halfHieght) {
