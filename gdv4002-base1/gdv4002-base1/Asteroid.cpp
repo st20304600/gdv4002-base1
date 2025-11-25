@@ -15,10 +15,24 @@ Asteroid::Asteroid(glm::vec2 initPosition, float initOrientation, glm::vec2 init
 
 void Asteroid::update(double tDelta) {
 
-	Asteroid::orientation += rotationSpeed * (float)tDelta;
+	ScreenBounce();
+
+	orientation += rotationSpeed * (float)tDelta;
+
+	position += (velocity * (float)tDelta);
 
 }
 
-void Asteroid::SpawnAsteroid() {
+void Asteroid::ScreenBounce() {
+
+	float halfHeight = getViewplaneHeight() / 2.0f;
+	float halfWidth = getViewplaneWidth() / 2.0f;
+
+	if (position.x <= 0 || position.x >= halfWidth) {
+		velocity.x = -velocity.x;
+	}
+	if (position.y <= 0 || position.y >= halfHeight) {
+		velocity.y = -velocity.y;
+	}
 
 }

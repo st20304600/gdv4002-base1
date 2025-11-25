@@ -9,11 +9,12 @@ private:
 	float mass;
 	float rotationSpeed;
 	vec2 velocity;
+	float bounceForce;
 
 public:
 	Asteroid(glm::vec2 initialPosition, float initOrientation, glm::vec2 initSize, GLuint initTextureID, glm::vec2 initVelocity, float mass);
 
 	void update(double tDelta) override;
 
-	void SpawnAsteroid();
+	void ScreenBounce();
 };

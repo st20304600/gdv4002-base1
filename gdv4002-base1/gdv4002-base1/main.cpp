@@ -38,13 +38,11 @@ int main(void) {
 	GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
 
 	Asteroid* asteroid1 = new Asteroid(vec2(0.0f, 2.0f), 0.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
-	Asteroid* asteroid2 = new Asteroid(vec2(1.0f, 2.0f), 0.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
-	Asteroid* asteroid3 = new Asteroid(vec2(-1.0f, 2.0f), 0.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
+	Asteroid* asteroid2 = new Asteroid(vec2(0.0f, 2.0f), 0.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
 
 
 	addObject("asteroid1", asteroid1);
-	addObject("asteroid1", asteroid2);
-	addObject("asteroid1", asteroid3);
+	addObject("asteroid2", asteroid2);
 
 
 	setKeyboardHandler(myKeyboardHandler);
