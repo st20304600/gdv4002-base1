@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Keys.h"
 #include "Engine.h"
+#include "Bullet.h"
 #include <bitset>
 #include <cmath>
 #include <complex>
@@ -19,6 +20,8 @@ Player::Player(glm::vec2 initPosition,
 	this->mass = mass;
 
 	velocity = vec2(0.0f, 0.0f); //Initial velocity is zero
+
+
 }
 
 void Player::update(double tDelta) {
@@ -57,6 +60,17 @@ void Player::update(double tDelta) {
 	velocity = velocity + (a * (float)tDelta); //Update velocity
 	position += (velocity * (float)tDelta); //Update position
 #pragma endregion
+
+	// accumulate time since last shot
+	timeSinceLastShot += (float)tDelta;
+
+	// fire when SPACE pressed and cooldown elapsed
+	if (keys.test(Key::SPACE) == true) {
+		if (timeSinceLastShot >= shotCooldown) {
+			Bullet::Shoot();
+			timeSinceLastShot = 0.0f;
+		}
+	}
 
 }
 

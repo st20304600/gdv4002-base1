@@ -37,9 +37,8 @@ int main(void) {
 	//Asteroid
 	GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
 
-	Asteroid* asteroid1 = new Asteroid(vec2(0.0f, 2.0f), 0.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
-	Asteroid* asteroid2 = new Asteroid(vec2(0.0f, 2.0f), 0.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
-
+	Asteroid* asteroid1 = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
+	Asteroid* asteroid2 = new Asteroid(vec2(1.0f, 1.0f), 2.0f, vec2(0.3f, 0.3f), asteroidTexture, vec2(0.5f, -0.2f), 0.5f);
 
 	addObject("asteroid1", asteroid1);
 	addObject("asteroid2", asteroid2);
@@ -78,6 +77,9 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 		case GLFW_KEY_A:
 			keys[Key::A] = true;
 			break;
+		case GLFW_KEY_SPACE:
+			keys[Key::SPACE] = true;
+			break;
 		}
 	}
 	// If not pressed, check the key has just been released
@@ -97,6 +99,9 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 			break;
 		case GLFW_KEY_A:
 			keys[Key::A] = false;
+			break;
+		case GLFW_KEY_SPACE:
+			keys[Key::SPACE] = false;
 			break;
 		}
 	}

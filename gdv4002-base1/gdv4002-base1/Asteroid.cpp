@@ -19,7 +19,7 @@ void Asteroid::update(double tDelta) {
 
 	orientation += rotationSpeed * (float)tDelta;
 
-	position += (velocity * (float)tDelta);
+	position += (velocity / mass * (float)tDelta);
 
 }
 
@@ -28,10 +28,10 @@ void Asteroid::ScreenBounce() {
 	float halfHeight = getViewplaneHeight() / 2.0f;
 	float halfWidth = getViewplaneWidth() / 2.0f;
 
-	if (position.x <= 0 || position.x >= halfWidth) {
+	if (position.x <= -halfWidth || position.x >= halfWidth) {
 		velocity.x = -velocity.x;
 	}
-	if (position.y <= 0 || position.y >= halfHeight) {
+	if (position.y <= -halfHeight || position.y >= halfHeight) {
 		velocity.y = -velocity.y;
 	}
 

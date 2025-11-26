@@ -17,4 +17,5 @@ public:
 	void update(double tDelta) override;
 
 	void ScreenBounce();
+
 };
