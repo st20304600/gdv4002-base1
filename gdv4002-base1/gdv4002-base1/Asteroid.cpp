@@ -36,3 +36,15 @@ void Asteroid::ScreenBounce() {
 	}
 
 }
+
+void Asteroid::SpawnAsteroids() {
+	
+	while (currentAsteroids <= maxAsteroids) {
+
+		GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
+
+
+
+	}
+
+}

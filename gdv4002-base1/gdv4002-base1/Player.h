@@ -23,6 +23,4 @@ class Player : public GameObject2D {
 
 		void ScreenBounds();
 
-		void FireBullet();
-
 };

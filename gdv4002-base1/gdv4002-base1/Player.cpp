@@ -21,13 +21,11 @@ Player::Player(glm::vec2 initPosition,
 
 	velocity = vec2(0.0f, 0.0f); //Initial velocity is zero
 
-
 }
 
 void Player::update(double tDelta) {
 
 	ScreenBounds();
-	//cout << position.x << "," << position.y << "\n";
 
 	vec2 F = vec2(0.0f, 0.0f);
 
@@ -60,7 +58,7 @@ void Player::update(double tDelta) {
 	velocity = velocity + (a * (float)tDelta); //Update velocity
 	position += (velocity * (float)tDelta); //Update position
 #pragma endregion
-
+#pragma region Shooting Mechanic
 	// accumulate time since last shot
 	timeSinceLastShot += (float)tDelta;
 
@@ -71,6 +69,7 @@ void Player::update(double tDelta) {
 			timeSinceLastShot = 0.0f;
 		}
 	}
+#pragma endregion
 
 }
 
