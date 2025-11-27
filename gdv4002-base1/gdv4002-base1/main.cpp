@@ -27,6 +27,12 @@ int main(void) {
 		return initResult; // exit if setup failed
 	}
 
+	//Background
+	//GLuint backgroundTexture = loadTexture("Resources\\Textures\\BackGround.png");
+
+	//GameObject2D* background = new GameObject2D(vec2(0.0f, 0.0f), 0.0f, vec2(5.0f, 5.0f), backgroundTexture);
+	//addObject("background", background);
+
 	//Player
 	GLuint playerTexture = loadTexture("Resources\\Textures\\player1_ship.png");
 
