@@ -60,7 +60,10 @@ void Asteroid::SpawnAsteroids() {
 
 		float x, y;
 		RandomPosition(&x, &y);
-		Asteroid* asteroid = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
+
+		float sizeXY = ((float)rand() / (float)RAND_MAX) * 0.4f + 0.1f;
+		
+		Asteroid* asteroid = new Asteroid(vec2(x, y), 1.0f, vec2(sizeXY, sizeXY), asteroidTexture, vec2(1.0f, -0.2f), 1.0f);
 		addObject("asteroid", asteroid);
 		currentAsteroids++;
 	}

@@ -15,6 +15,8 @@ bitset<6> keys{ 0x0 };
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
 //set prototype for keyboard handler function
 
+void myRender(GLFWwindow* window);
+
 int main(void) {
 
 	// Initialise the engine (create window, setup OpenGL backend)
@@ -31,12 +33,14 @@ int main(void) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthFunc(GL_ALWAYS);
 
+	srand(std::time({}));
 
-	////Background
-	//GLuint backgroundTexture = loadTexture("Resources\\Textures\\BackGround.png");
 
-	//GameObject2D* background = new GameObject2D(vec2(0.0f, 0.0f), 0.0f, vec2(5.0f, 5.0f), backgroundTexture);
-	//addObject("background", background);
+	//Background
+	GLuint backgroundTexture = loadTexture("Resources\\Textures\\BackGround.png");
+
+	GameObject2D* background = new GameObject2D(vec2(0.0f, 0.0f), 0.0f, vec2(5.0f, 5.0f), backgroundTexture);
+	addObject("background", background);
 
 	//Player
 	GLuint playerTexture = loadTexture("Resources\\Textures\\player1_ship.png");
@@ -45,21 +49,16 @@ int main(void) {
 
 	addObject("player", mainPlayer);
 
-	////Asteroid
+	//Asteroid
 	GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
 	Asteroid* asteroid = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
 	asteroid->SpawnAsteroids();
-	//GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
-
-	//Asteroid* asteroid1 = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
-	//Asteroid* asteroid2 = new Asteroid(vec2(1.0f, 1.0f), 2.0f, vec2(0.3f, 0.3f), asteroidTexture, vec2(0.5f, -0.2f), 0.5f);
-
-	//addObject("asteroid1", asteroid1);
-	//addObject("asteroid2", asteroid2);
 
 	listGameObjectKeys();
 
 	setKeyboardHandler(myKeyboardHandler);
+	setRenderFunction(myRender);
+
 	//Sets it and gets it ready.
 
 	// Enter main loop - this handles update and render calls
@@ -128,3 +127,22 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 	}
 }
 
+void myRender(GLFWwindow* window) {
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthFunc(GL_ALWAYS);
+
+	GameObject2D* background = getObject("background");
+	background->render();
+
+	GameObjectCollection asteroids = getObjectCollection("asteroid");
+	for (int i = 0; i < asteroids.objectCount; i++) {
+		asteroids.objectArray[i]->render();
+	}
+	GameObject2D* player = getObject("player");
+	player->render();
+
+	GameObject2D* bullet = getObject("bullet");
+	bullet->render();
+}
