@@ -9,7 +9,7 @@
 using namespace std;
 using namespace glm;
 
-extern bitset<5> keys; //Using extern to access the global keys variable from main.cpp
+extern bitset<6> keys; //Using extern to access the global keys variable from main.cpp
 
 Player::Player(glm::vec2 initPosition, 
 			   float initOrientation, 
@@ -54,6 +54,16 @@ void Player::update(double tDelta) {
 		orientation -= playerRotationSpeed * (float)tDelta;
 	}
 
+	//Head Break
+	if (keys.test(Key::F) == true) {
+
+		if (F.x >= 0.0f && F.y >= 0.0f || F.x <= 0.0f && F.y <= 0.0f) {
+
+			F -= 0.5;
+
+		}
+	}
+
 	vec2 a = F * (1.0f / mass); //Calculate acceleration
 	velocity = velocity + (a * (float)tDelta); //Update velocity
 	position += (velocity * (float)tDelta); //Update position
@@ -71,6 +81,7 @@ void Player::update(double tDelta) {
 	}
 #pragma endregion
 
+
 }
 
 void Player::ScreenBounds() {
@@ -85,9 +96,9 @@ void Player::ScreenBounds() {
 		position.x = halfWidth - 0.1f;
 	}
 	if (position.y >= halfHieght) {
-		position.y = -halfWidth + 0.1f;
+		position.y = -halfHieght + 0.2f;
 	}
-	if (position.y <= -halfWidth) {
-		position.y = halfWidth + 0.1f;
+	if (position.y <= -halfHieght) {
+		position.y = halfHieght - 0.2f;
 	}
 }

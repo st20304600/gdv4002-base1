@@ -10,7 +10,7 @@ using namespace std;
 using namespace glm;
 
 //global variables
-bitset<5> keys{ 0x0 };
+bitset<6> keys{ 0x0 };
 
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
 //set prototype for keyboard handler function
@@ -27,7 +27,12 @@ int main(void) {
 		return initResult; // exit if setup failed
 	}
 
-	//Background
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDepthFunc(GL_ALWAYS);
+
+
+	////Background
 	//GLuint backgroundTexture = loadTexture("Resources\\Textures\\BackGround.png");
 
 	//GameObject2D* background = new GameObject2D(vec2(0.0f, 0.0f), 0.0f, vec2(5.0f, 5.0f), backgroundTexture);
@@ -40,15 +45,19 @@ int main(void) {
 
 	addObject("player", mainPlayer);
 
-	//Asteroid
+	////Asteroid
 	GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
+	Asteroid* asteroid = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
+	asteroid->SpawnAsteroids();
+	//GLuint asteroidTexture = loadTexture("Resources\\Textures\\Asteroid.png");
 
-	Asteroid* asteroid1 = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
-	Asteroid* asteroid2 = new Asteroid(vec2(1.0f, 1.0f), 2.0f, vec2(0.3f, 0.3f), asteroidTexture, vec2(0.5f, -0.2f), 0.5f);
+	//Asteroid* asteroid1 = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
+	//Asteroid* asteroid2 = new Asteroid(vec2(1.0f, 1.0f), 2.0f, vec2(0.3f, 0.3f), asteroidTexture, vec2(0.5f, -0.2f), 0.5f);
 
-	addObject("asteroid1", asteroid1);
-	addObject("asteroid2", asteroid2);
+	//addObject("asteroid1", asteroid1);
+	//addObject("asteroid2", asteroid2);
 
+	listGameObjectKeys();
 
 	setKeyboardHandler(myKeyboardHandler);
 	//Sets it and gets it ready.
@@ -86,6 +95,9 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 		case GLFW_KEY_SPACE:
 			keys[Key::SPACE] = true;
 			break;
+		case GLFW_KEY_F:
+			keys[Key::F] = true;
+			break;
 		}
 	}
 	// If not pressed, check the key has just been released
@@ -108,6 +120,9 @@ void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, in
 			break;
 		case GLFW_KEY_SPACE:
 			keys[Key::SPACE] = false;
+			break;
+		case GLFW_KEY_F:
+			keys[Key::F] = false;
 			break;
 		}
 	}
