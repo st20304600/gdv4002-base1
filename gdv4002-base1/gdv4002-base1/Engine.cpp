@@ -392,6 +392,10 @@ bool deleteObject(GameObject2D* objectPtr) {
 			// Object to delete found - first store key string
 			string objKey = iter->first;
 
+
+			delete objectPtr;
+			iter->second = nullptr;
+
 			// ...the delete from gameObjects.
 			gameObjects.erase(iter);
 			objectErased = true;

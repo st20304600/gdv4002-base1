@@ -16,5 +16,4 @@ class Bullet : public GameObject2D {
 
 		// Make Shoot static so it can be called from Player without an instance
 		static void Shoot();
-
 };

@@ -15,6 +15,8 @@ bitset<6> keys{ 0x0 };
 vec2 gravity = vec2(0.0f, -0.005f);
 
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
+void deleteSnowflakes(GLFWwindow* window, double tDelta);
+
 //set prototype for keyboard handler function
 
 void myRender(GLFWwindow* window);
@@ -65,10 +67,11 @@ int main(void) {
 	addObject("emitter", emitter);
 
 
-	listGameObjectKeys();
+
 
 	setKeyboardHandler(myKeyboardHandler);
 	setRenderFunction(myRender);
+	setUpdateFunction(deleteSnowflakes, false);
 
 	//Sets it and gets it ready.
 
@@ -78,8 +81,23 @@ int main(void) {
 	// When we quit (close window for example), clean up engine resources
 	engineShutdown();
 
+	listGameObjectKeys();
+
 	// return success :)
 	return 0;
+}
+
+void deleteSnowflakes(GLFWwindow* window, double tDelta) {
+
+	GameObjectCollection snowflakes = getObjectCollection("snowflake");
+
+	for (int i = 0; i < snowflakes.objectCount; i++) {
+
+		if (snowflakes.objectArray[i]->position.y < -(getViewplaneHeight() / 2.0f)) {
+
+			deleteObject(snowflakes.objectArray[i]);
+		}
+	}
 }
 
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -144,8 +162,8 @@ void myRender(GLFWwindow* window) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDepthFunc(GL_ALWAYS);
 
-	//GameObject2D* background = getObject("background");
-	//background->render();
+	GameObject2D* background = getObject("background");
+	background->render();
 
 	GameObjectCollection asteroids = getObjectCollection("asteroid");
 	for (int i = 0; i < asteroids.objectCount; i++) {

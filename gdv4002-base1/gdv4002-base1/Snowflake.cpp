@@ -1,6 +1,8 @@
 #include "Snowflake.h"
+#include "Engine.h"
 
 using namespace glm;
+using namespace std;
 
 extern vec2 gravity;
 
@@ -12,6 +14,11 @@ Snowflake::Snowflake(vec2 initPosition, float initOrientation, vec2 initSize, GL
 
 	this->angleChangePerSecond = angleChangePerSecond;
 }
+
+Snowflake::~Snowflake() {
+	cout << "Obj Deleted";
+}
+
 
 void Snowflake::update(double tDelta) {
 
@@ -34,3 +41,4 @@ void Snowflake::update(double tDelta) {
 	// 2. Non-physics bit for rotation
 	orientation += angleChangePerSecond * (float)tDelta;
 }
+
