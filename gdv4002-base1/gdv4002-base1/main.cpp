@@ -143,6 +143,8 @@ void myRender(GLFWwindow* window) {
 	GameObject2D* player = getObject("player");
 	player->render();
 
-	GameObject2D* bullet = getObject("bullet");
-	bullet->render();
+	GameObjectCollection bullets = getObjectCollection("bullet");
+	for (int i = 0; i < bullets.objectCount; ++i) {
+		if (bullets.objectArray[i]) bullets.objectArray[i]->render();
+	}
 }
