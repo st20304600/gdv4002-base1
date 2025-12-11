@@ -24,7 +24,7 @@ Bullet::Bullet(vec2 initalPosition,
 }
 
 void Bullet::update(double tDelta) {
-	// simple movement
+
 	position += velocoity * (float)tDelta;
 }
 

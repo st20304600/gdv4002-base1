@@ -15,7 +15,6 @@ bitset<6> keys{ 0x0 };
 vec2 gravity = vec2(0.0f, -0.005f);
 
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
-void deleteSnowflakes(GLFWwindow* window, double tDelta);
 
 //set prototype for keyboard handler function
 
@@ -58,20 +57,17 @@ int main(void) {
 	Asteroid* asteroid = new Asteroid(vec2(0.0f, 2.0f), 1.0f, vec2(0.5f, 0.5f), asteroidTexture, vec2(0.5f, -0.2f), 1.0f);
 	asteroid->SpawnAsteroids();
 
-	//Emitter
-	Emitter* emitter = new Emitter(
-		glm::vec2(0.0f, getViewplaneHeight() / 2.0f * 1.2f),
-		glm::vec2(getViewplaneWidth() / 2.0f, 0.0f),
-		0.05f);
+	////Emitter
+	//Emitter* emitter = new Emitter(
+	//	glm::vec2(0.0f, getViewplaneHeight() / 2.0f * 1.2f),
+	//	glm::vec2(getViewplaneWidth() / 2.0f, 0.0f),
+	//	0.05f);
 
-	addObject("emitter", emitter);
-
-
-
+	//addObject("emitter", emitter);
 
 	setKeyboardHandler(myKeyboardHandler);
 	setRenderFunction(myRender);
-	setUpdateFunction(deleteSnowflakes, false);
+	//setUpdateFunction(deleteSnowflakes, false);
 
 	//Sets it and gets it ready.
 
@@ -85,19 +81,6 @@ int main(void) {
 
 	// return success :)
 	return 0;
-}
-
-void deleteSnowflakes(GLFWwindow* window, double tDelta) {
-
-	GameObjectCollection snowflakes = getObjectCollection("snowflake");
-
-	for (int i = 0; i < snowflakes.objectCount; i++) {
-
-		if (snowflakes.objectArray[i]->position.y < -(getViewplaneHeight() / 2.0f)) {
-
-			deleteObject(snowflakes.objectArray[i]);
-		}
-	}
 }
 
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -177,8 +160,4 @@ void myRender(GLFWwindow* window) {
 		if (bullets.objectArray[i]) bullets.objectArray[i]->render();
 	}
 
-	GameObjectCollection snowflakes = getObjectCollection("snowflake");
-	for (int i = 0; i < snowflakes.objectCount; ++i) {
-		if (snowflakes.objectArray[i]) snowflakes.objectArray[i]->render();
-	}
 }
