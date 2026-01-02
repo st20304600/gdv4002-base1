@@ -15,6 +15,7 @@ bitset<6> keys{ 0x0 };
 vec2 gravity = vec2(0.0f, -0.005f);
 
 void myKeyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods);
+void deleteBullets(GLFWwindow* window, double tDelta);
 
 //set prototype for keyboard handler function
 
@@ -31,6 +32,8 @@ int main(void) {
 		printf("Cannot setup game window!!!\n");
 		return initResult; // exit if setup failed
 	}
+
+	setUpdateFunction(deleteBullets, false);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -160,4 +163,29 @@ void myRender(GLFWwindow* window) {
 		if (bullets.objectArray[i]) bullets.objectArray[i]->render();
 	}
 
+}
+
+void deleteBullets(GLFWwindow* window, double tDelta) {
+
+	GameObjectCollection bullets = getObjectCollection("bullet");
+
+	// Precompute viewplane half sizes once
+	float halfW = getViewplaneWidth() / 2.0f;
+	float halfH = getViewplaneHeight() / 2.0f;
+
+	// Iterate backwards once and safely delete items without skipping or invalidating lower indices
+	for (int i = bullets.objectCount - 1; i >= 0; --i) {
+
+		// Guard against null/invalid pointers in the collection
+		GameObject2D* obj = bullets.objectArray[i];
+		if (obj == nullptr) {
+			continue;
+		}
+
+		if (obj->position.y <= -halfH || obj->position.y >= halfH ||
+			obj->position.x <= -halfW || obj->position.x >= halfW) {
+
+			deleteObject(obj);
+		}
+	}
 }

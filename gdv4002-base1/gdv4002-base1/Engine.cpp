@@ -581,10 +581,16 @@ void defaultRenderScene()
 // Function called to update game objects in the scene
 void defaultUpdateScene(double tDelta) {
 
-	for (auto iter = gameObjects.begin(); iter != gameObjects.end(); iter++) {
+    // Iterate in a way that is safe if an object's update() deletes that object from the
+    // gameObjects map. Increment the iterator first, then call update on the current item.
+    for (auto iter = gameObjects.begin(); iter != gameObjects.end(); ) {
 
-		iter->second->update(tDelta);
-	}
+        auto current = iter++;
+
+        if (current->second) {
+            current->second->update(tDelta);
+        }
+    }
 }
 
 // Function to call when window resized
